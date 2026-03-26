@@ -1159,10 +1159,30 @@
     <wire from="(970,360)" to="(1080,360)"/>
   </circuit>
   <circuit name="ALU_Main">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="ALU_Main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <polygon fill="none" points="140,127 155,137 140,147 140,176 140,177 190,170 190,141 190,111 140,97" stroke="#000000"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="148" y="109">A</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="148" y="119">B</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="158" y="159">Control</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="6" text-anchor="middle" x="180" y="119">Z</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="6" text-anchor="middle" x="180" y="130">V</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="6" text-anchor="middle" x="180" y="140">N</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="6" text-anchor="middle" x="180" y="150">C</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="6" text-anchor="middle" x="180" y="159">S</text>
+      <circ-anchor facing="east" x="190" y="120"/>
+      <circ-port dir="in" pin="250,490" x="140" y="110"/>
+      <circ-port dir="in" pin="250,530" x="140" y="120"/>
+      <circ-port dir="in" pin="930,590" x="140" y="160"/>
+      <circ-port dir="out" pin="1020,260" x="190" y="140"/>
+      <circ-port dir="out" pin="1030,460" x="190" y="160"/>
+      <circ-port dir="out" pin="1060,270" x="190" y="150"/>
+      <circ-port dir="out" pin="940,240" x="190" y="120"/>
+      <circ-port dir="out" pin="980,250" x="190" y="130"/>
+    </appear>
     <comp lib="0" loc="(1020,260)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
@@ -1172,6 +1192,7 @@
     <comp lib="0" loc="(1030,460)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="S"/>
       <a name="type" val="output"/>
       <a name="width" val="16"/>
     </comp>
