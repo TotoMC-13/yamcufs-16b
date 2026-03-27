@@ -13,6 +13,9 @@
     <tool name="Pin">
       <a name="appearance" val="classic"/>
     </tool>
+    <tool name="Tunnel">
+      <a name="facing" val="east"/>
+    </tool>
     <tool name="Constant">
       <a name="value" val="0x0"/>
     </tool>
