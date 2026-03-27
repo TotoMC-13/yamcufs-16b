@@ -3,8 +3,18 @@
   This file is intended to be loaded by Logisim-evolution v4.1.0(https://github.com/logisim-evolution/).
 
   <lib desc="#Wiring" name="0">
+    <tool name="Splitter">
+      <a name="bit1" val="none"/>
+      <a name="bit2" val="none"/>
+      <a name="bit3" val="none"/>
+      <a name="fanout" val="1"/>
+      <a name="incoming" val="4"/>
+    </tool>
     <tool name="Pin">
       <a name="appearance" val="classic"/>
+    </tool>
+    <tool name="Constant">
+      <a name="value" val="0x0"/>
     </tool>
   </lib>
   <lib desc="#Gates" name="1"/>
@@ -58,20 +68,29 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <appear>
-      <rect fill="none" height="60" stroke="#000000" width="60" x="50" y="50"/>
-      <polyline fill="none" points="50,96 60,100 50,104" stroke="#000000"/>
-      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="80" y="101">Reset</text>
+      <rect fill="none" height="90" stroke="#000000" width="60" x="50" y="50"/>
+      <polyline fill="none" points="50,126 60,130 50,134" stroke="#000000"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="79" y="130">Reset</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="68" y="79">PC_Src</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="79" y="69">Adress_Write</text>
       <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="62" y="59">Halt</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="75" y="99">JR_Adress</text>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="8" text-anchor="middle" x="74" y="109">JR_Enable</text>
       <circ-anchor facing="east" x="50" y="60"/>
+      <circ-port dir="in" pin="550,510" x="50" y="110"/>
       <circ-port dir="in" pin="580,300" x="50" y="60"/>
-      <circ-port dir="in" pin="580,350" x="50" y="100"/>
+      <circ-port dir="in" pin="580,350" x="50" y="130"/>
+      <circ-port dir="in" pin="600,570" x="50" y="100"/>
       <circ-port dir="in" pin="640,510" x="50" y="80"/>
-      <circ-port dir="in" pin="650,350" x="80" y="110"/>
+      <circ-port dir="in" pin="650,350" x="80" y="140"/>
       <circ-port dir="in" pin="800,240" x="110" y="60"/>
       <circ-port dir="in" pin="800,480" x="50" y="70"/>
     </appear>
+    <comp lib="0" loc="(550,510)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+      <a name="label" val="JR_Enable"/>
+    </comp>
     <comp lib="0" loc="(580,300)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="Halt"/>
@@ -80,6 +99,12 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(600,570)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+      <a name="label" val="JR_Adress"/>
+      <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(640,510)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -108,6 +133,10 @@
       <a name="width" val="16"/>
     </comp>
     <comp lib="1" loc="(620,300)" name="NOT Gate"/>
+    <comp lib="2" loc="(530,480)" name="Multiplexer">
+      <a name="facing" val="west"/>
+      <a name="width" val="16"/>
+    </comp>
     <comp lib="2" loc="(620,470)" name="Multiplexer">
       <a name="facing" val="west"/>
       <a name="width" val="16"/>
@@ -119,12 +148,16 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="16"/>
     </comp>
-    <wire from="(520,280)" to="(520,470)"/>
+    <wire from="(520,280)" to="(520,480)"/>
     <wire from="(520,280)" to="(620,280)"/>
-    <wire from="(520,470)" to="(620,470)"/>
+    <wire from="(520,480)" to="(530,480)"/>
+    <wire from="(550,500)" to="(550,510)"/>
+    <wire from="(560,470)" to="(620,470)"/>
+    <wire from="(560,490)" to="(600,490)"/>
     <wire from="(580,300)" to="(590,300)"/>
     <wire from="(580,320)" to="(580,350)"/>
     <wire from="(580,320)" to="(620,320)"/>
+    <wire from="(600,490)" to="(600,570)"/>
     <wire from="(640,490)" to="(640,510)"/>
     <wire from="(650,340)" to="(650,350)"/>
     <wire from="(650,460)" to="(790,460)"/>
