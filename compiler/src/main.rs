@@ -1,11 +1,33 @@
 use compiler::lexer::lexer;
+use compiler::parser::parser;
+use std::env;
+use std::fs;
 
 fn main() {
-    let res: Vec<String>;
+    let args: Vec<String> = env::args().collect();
 
-    res = lexer(String::from("addi r2, r2, r7 # WAZAAA"));
+    let file_path = if args.len() > 1 {
+        &args[1]
+    } else {
+        "./test.asm"
+    };
 
-    for i in 0..res.len() {
-        println!("{}", res[i])
+    let content =
+        fs::read_to_string(file_path).expect("No se pudo leer el archivo. Verifica la ruta.");
+
+    let tokens = lexer(content);
+
+    for token in &tokens {
+        println!("{}", token);
+    }
+
+    let parsed = parser(tokens);
+
+    let output_name = file_path.replace(".asm", "").replace("./", "");
+    compiler::writer::write_hex(parsed.clone(), output_name.clone());
+
+    println!("Archivo compilado con exito: {}.hex", output_name);
+    for i in parsed {
+        println!("0x{:04X}", i);
     }
 }
