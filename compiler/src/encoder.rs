@@ -5,12 +5,12 @@ impl Instruction {
         match self {
             Instruction::RType {
                 opcode,
-                rs1,
                 rd,
+                rs1,
                 rs2,
             } => {
-                // Formato R: opcode[15:12], rs1[11:8], rd[7:4], rs2[3:0]
-                (*opcode as u16) << 12 | (*rs1 as u16) << 8 | (*rd as u16) << 4 | (*rs2 as u16)
+                // Formato R: opcode[15:12], rsd[11:8], rs1[7:4], rs2[3:0]
+                (*opcode as u16) << 12 | (*rd as u16) << 8 | (*rs1 as u16) << 4 | (*rs2 as u16)
             }
             Instruction::IType {
                 opcode,

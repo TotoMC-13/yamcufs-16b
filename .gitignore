@@ -8,3 +8,7 @@ target/
 .DS_Store
 .vscode/
 *.swp
+
+# Output and Code files
+*.asm
+*.hex
