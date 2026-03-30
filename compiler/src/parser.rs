@@ -94,11 +94,6 @@ pub fn parser(tokens: Vec<String>) -> Vec<u16> {
 
                 // ---- TIPO B ----
                 OpCode::Beq => {
-                    let rs1 =
-                        Register::from_str(iter.next().unwrap()).expect("Error parseando Rs1");
-                    let rs2 =
-                        Register::from_str(iter.next().unwrap()).expect("Error parseando Rs2");
-
                     let destino_str = iter.next().unwrap();
                     let imm = if let Ok(num) = destino_str.parse::<i8>() {
                         num
@@ -111,6 +106,11 @@ pub fn parser(tokens: Vec<String>) -> Vec<u16> {
                         let diferencia = (*dir_destino as i16) - (pc as i16);
                         diferencia as i8
                     };
+                    let rs1 =
+                        Register::from_str(iter.next().unwrap()).expect("Error parseando Rs1");
+                    let rs2 =
+                        Register::from_str(iter.next().unwrap()).expect("Error parseando Rs2");
+
                     let instruccion = Instruction::BType {
                         opcode,
                         imm,
