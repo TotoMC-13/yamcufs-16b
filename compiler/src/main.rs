@@ -17,17 +17,10 @@ fn main() {
 
     let tokens = lexer(content);
 
-    for token in &tokens {
-        println!("{}", token);
-    }
-
     let parsed = parser(tokens);
 
     let output_name = file_path.replace(".asm", "").replace("./", "");
     compiler::writer::write_hex(parsed.clone(), output_name.clone());
 
     println!("Archivo compilado con exito: {}.hex", output_name);
-    for i in parsed {
-        println!("0x{:04X}", i);
-    }
 }

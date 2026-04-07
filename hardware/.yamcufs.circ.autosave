@@ -147,16 +147,16 @@
       <a name="facing" val="north"/>
       <a name="label" val="MEM_TO_REG"/>
     </comp>
-    <comp lib="0" loc="(1200,310)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="JR_ADRESS"/>
-      <a name="width" val="16"/>
-    </comp>
     <comp lib="0" loc="(1260,370)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="ALU_OP"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(1390,470)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="JR_ADRESS"/>
+      <a name="width" val="16"/>
     </comp>
     <comp lib="0" loc="(1440,260)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -204,6 +204,10 @@
     <comp lib="0" loc="(830,80)" name="Tunnel">
       <a name="label" val="PC_ADRESS"/>
     </comp>
+    <comp lib="0" loc="(880,670)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="SELECT_BRANCH_IMM"/>
+    </comp>
     <comp lib="0" loc="(900,330)" name="Splitter">
       <a name="bit0" val="1"/>
       <a name="bit10" val="2"/>
@@ -246,6 +250,9 @@
     <comp lib="0" loc="(910,250)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="JAL_TO_REG"/>
+    </comp>
+    <comp lib="0" loc="(920,1860)" name="Tunnel">
+      <a name="label" val="SELECT_BRANCH_IMM"/>
     </comp>
     <comp lib="0" loc="(990,1290)" name="Tunnel">
       <a name="label" val="MEM_TO_REG"/>
@@ -315,6 +322,10 @@
       <a name="select" val="4"/>
       <a name="selloc" val="tr"/>
     </comp>
+    <comp lib="2" loc="(980,480)" name="Multiplexer">
+      <a name="facing" val="south"/>
+      <a name="width" val="4"/>
+    </comp>
     <comp lib="2" loc="(990,270)" name="Multiplexer">
       <a name="facing" val="south"/>
       <a name="width" val="16"/>
@@ -332,7 +343,7 @@
       <a name="addrWidth" val="16"/>
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 16 16
-9105 c101 b201 dd12
+0 f107
 </a>
       <a name="dataWidth" val="16"/>
       <a name="label" val="ROM_1"/>
@@ -403,7 +414,7 @@
     <wire from="(1160,500)" to="(1180,500)"/>
     <wire from="(1190,510)" to="(1190,550)"/>
     <wire from="(1200,240)" to="(1200,250)"/>
-    <wire from="(1200,290)" to="(1200,310)"/>
+    <wire from="(1200,280)" to="(1200,290)"/>
     <wire from="(1200,290)" to="(1280,290)"/>
     <wire from="(1210,210)" to="(1450,210)"/>
     <wire from="(1210,230)" to="(1460,230)"/>
@@ -414,8 +425,10 @@
     <wire from="(1280,330)" to="(1280,490)"/>
     <wire from="(1280,330)" to="(1290,330)"/>
     <wire from="(1340,330)" to="(1350,330)"/>
-    <wire from="(1340,370)" to="(1450,370)"/>
+    <wire from="(1340,370)" to="(1390,370)"/>
     <wire from="(1350,140)" to="(1350,330)"/>
+    <wire from="(1390,370)" to="(1390,470)"/>
+    <wire from="(1390,370)" to="(1450,370)"/>
     <wire from="(1440,260)" to="(1460,260)"/>
     <wire from="(1440,290)" to="(1460,290)"/>
     <wire from="(1440,320)" to="(1470,320)"/>
@@ -550,7 +563,9 @@
     <wire from="(660,1080)" to="(660,1410)"/>
     <wire from="(660,1410)" to="(660,1670)"/>
     <wire from="(660,1410)" to="(890,1410)"/>
+    <wire from="(660,1670)" to="(660,1860)"/>
     <wire from="(660,1670)" to="(890,1670)"/>
+    <wire from="(660,1860)" to="(920,1860)"/>
     <wire from="(670,1060)" to="(670,1090)"/>
     <wire from="(670,1060)" to="(890,1060)"/>
     <wire from="(670,1090)" to="(670,1130)"/>
@@ -569,14 +584,18 @@
     <wire from="(810,120)" to="(940,120)"/>
     <wire from="(810,80)" to="(830,80)"/>
     <wire from="(870,330)" to="(900,330)"/>
+    <wire from="(880,460)" to="(880,670)"/>
+    <wire from="(880,460)" to="(960,460)"/>
     <wire from="(900,330)" to="(900,340)"/>
     <wire from="(910,250)" to="(970,250)"/>
+    <wire from="(910,370)" to="(910,560)"/>
+    <wire from="(910,370)" to="(920,370)"/>
+    <wire from="(910,560)" to="(970,560)"/>
     <wire from="(920,290)" to="(1000,290)"/>
     <wire from="(920,300)" to="(950,300)"/>
     <wire from="(920,310)" to="(980,310)"/>
     <wire from="(920,320)" to="(940,320)"/>
-    <wire from="(920,350)" to="(920,560)"/>
-    <wire from="(920,560)" to="(970,560)"/>
+    <wire from="(920,350)" to="(920,370)"/>
     <wire from="(940,1010)" to="(1010,1010)"/>
     <wire from="(940,1080)" to="(1010,1080)"/>
     <wire from="(940,1150)" to="(1030,1150)"/>
@@ -593,19 +612,25 @@
     <wire from="(940,800)" to="(1030,800)"/>
     <wire from="(940,940)" to="(1010,940)"/>
     <wire from="(950,300)" to="(1000,300)"/>
-    <wire from="(950,300)" to="(950,520)"/>
+    <wire from="(950,300)" to="(950,440)"/>
+    <wire from="(950,440)" to="(970,440)"/>
+    <wire from="(950,480)" to="(950,520)"/>
+    <wire from="(950,480)" to="(980,480)"/>
     <wire from="(950,520)" to="(970,520)"/>
     <wire from="(970,1390)" to="(970,1480)"/>
     <wire from="(970,1480)" to="(990,1480)"/>
     <wire from="(970,1510)" to="(970,1600)"/>
     <wire from="(970,1510)" to="(990,1510)"/>
+    <wire from="(970,440)" to="(970,450)"/>
     <wire from="(980,220)" to="(1180,220)"/>
     <wire from="(980,220)" to="(980,240)"/>
     <wire from="(980,310)" to="(980,350)"/>
-    <wire from="(980,350)" to="(1000,350)"/>
+    <wire from="(980,350)" to="(990,350)"/>
     <wire from="(990,100)" to="(1060,100)"/>
     <wire from="(990,140)" to="(1350,140)"/>
     <wire from="(990,270)" to="(990,340)"/>
     <wire from="(990,340)" to="(1000,340)"/>
+    <wire from="(990,350)" to="(1000,350)"/>
+    <wire from="(990,350)" to="(990,450)"/>
   </circuit>
 </project>
