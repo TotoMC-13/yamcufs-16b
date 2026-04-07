@@ -127,3 +127,139 @@ impl OpCode {
         }
     }
 }
+
+#[derive(Copy, Clone)]
+pub enum Pseudo {
+    Nop,
+    Mv { rd: Register, rs1: Register },
+    Neg { rd: Register, rs1: Register },
+    Beqz { rd: Register, offset: i8 },
+    Bnez { rd: Register, offset: i8 },
+    Li { rd: Register, imm: i16 }, // Para constantes de 4b o 16b
+    Jr { rs1: Register },
+    Ret,
+}
+
+impl Pseudo {
+    pub fn from_str(s: &str) -> Option<Pseudo> {
+        match s.to_uppercase().as_str() {
+            "NOP" => Some(Pseudo::Nop),
+            _ => None,
+        }
+    }
+
+    pub fn expand(&self) -> Vec<Instruction> {
+        match self {
+            Pseudo::Nop => vec![Instruction::RType {
+                opcode: OpCode::Add,
+                rd: Register::R0,
+                rs1: Register::R0,
+                rs2: Register::R0,
+            }],
+            Pseudo::Mv { rd, rs1 } => vec![Instruction::RType {
+                opcode: OpCode::Add,
+                rd: *rd,
+                rs1: *rs1,
+                rs2: Register::R0,
+            }],
+            Pseudo::Neg { rd, rs1 } => vec![Instruction::RType {
+                opcode: OpCode::Sub,
+                rd: *rd,
+                rs1: *rs1,
+                rs2: Register::R0,
+            }],
+            Pseudo::Beqz { rd, offset } => vec![Instruction::BType {
+                opcode: OpCode::Beq,
+                imm: *offset,
+                rs1: *rd,
+                rs2: Register::R0,
+            }],
+            Pseudo::Bnez { rd, offset } => vec![
+                Instruction::BType {
+                    opcode: OpCode::Beq,
+                    imm: 1,
+                    rs1: *rd,
+                    rs2: Register::R0,
+                },
+                Instruction::JType {
+                    opcode: OpCode::J,
+                    imm: *offset as i16,
+                },
+            ],
+            Pseudo::Li { rd, imm } => {
+                let mut res: Vec<Instruction> = Vec::new();
+
+                if *imm >= -8 && *imm <= 7 {
+                    res.push(Instruction::IType {
+                        opcode: OpCode::Addi,
+                        rd: *rd,
+                        rs1: Register::R0,
+                        imm: *imm as i8,
+                    });
+                } else {
+                    let n1 = ((*imm >> 12) & 0xF) as i8;
+                    let n2 = ((*imm >> 8) & 0xF) as i8;
+                    let n3 = ((*imm >> 4) & 0xF) as i8;
+                    let n4 = (*imm & 0xF) as i8;
+
+                    res.push(Instruction::IType {
+                        opcode: OpCode::Addi,
+                        rd: Register::T3,
+                        rs1: Register::R0,
+                        imm: 4,
+                    });
+
+                    res.push(Instruction::IType {
+                        opcode: OpCode::Addi,
+                        rd: *rd,
+                        rs1: Register::R0,
+                        imm: n1,
+                    });
+                    for nibble in [n2, n3, n4] {
+                        res.push(Instruction::RType {
+                            opcode: OpCode::Sll,
+                            rd: *rd,
+                            rs1: *rd,
+                            rs2: Register::T3,
+                        });
+
+                        res.push(Instruction::IType {
+                            opcode: OpCode::Addi,
+                            rd: Register::T0,
+                            rs1: Register::R0,
+                            imm: nibble,
+                        });
+
+                        res.push(Instruction::IType {
+                            opcode: OpCode::Andi,
+                            rd: Register::T0,
+                            rs1: Register::T0,
+                            imm: 0xF,
+                        });
+
+                        res.push(Instruction::RType {
+                            opcode: OpCode::Or,
+                            rd: *rd,
+                            rs1: *rd,
+                            rs2: Register::T0,
+                        });
+                    }
+                }
+
+                res
+            }
+            Pseudo::Jr { rs1 } => vec![Instruction::IType {
+                opcode: OpCode::Jalr,
+                rd: Register::R0,
+                rs1: *rs1,
+                imm: 0,
+            }],
+            Pseudo::Ret => vec![Instruction::IType {
+                opcode: OpCode::Jalr,
+                rd: Register::R0,
+                rs1: Register::Ra,
+                imm: 0,
+            }],
+        }
+    }
+}
