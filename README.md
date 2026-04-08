@@ -15,12 +15,15 @@ difference is the language
 
 ## ASM Example
 
-Theres a file called fibonacci_calculator.asm, its intended to be compiled using the compiler
+Theres a file called fibonacci_calculator.asm inside the compiler folder, its intended to be compiled using the compiler
 and then load the .hex into the ROM. After some clocks (recommend speeding it up on Logisim) you
-will be able to see the Fibonacci Number with n = 23 in the 10th register (t2)
+will be able to see the Fibonacci Number with n = 23 in the 10th register (t2).
+
+In order to compile it run the following commands
+`cd compiler` and then `cargo run ./fibonacci_calculator.asm` Finally load the generated `fibonacci_calculator.hex` in the ROM
 
 I chose n = 23 because the result is the max Fibonacci Sequence number I can calculate while
-using 16 bits in Compliment 2
+using 16 bits in Two's Complement
 
 ### Main System (YAMCUFS)
 
