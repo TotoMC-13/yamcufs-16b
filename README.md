@@ -20,7 +20,7 @@ and then load the .hex into the ROM. After some clocks (recommend speeding it up
 will be able to see the Fibonacci Number with n = 23 in the 10th register (t2).
 
 In order to compile it run the following commands
-`cd compiler` and then `cargo run ./fibonacci_calculator.asm` Finally load the generated `fibonacci_calculator.hex` in the ROM
+`cd compiler` and then `cargo run ./fibonacci_calculator.asm` Finally load the generated `fibonacci_calculator.hex` into the ROM
 
 I chose n = 23 because the result is the max Fibonacci Sequence number I can calculate while
 using 16 bits in Two's Complement
